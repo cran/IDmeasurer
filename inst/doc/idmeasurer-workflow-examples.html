@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Pavel Linhart" />
+
+<meta name="date" content="2019-05-09" />
+
+<title>IDmeasurer workflow examples</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">IDmeasurer workflow examples</h1>
+<h4 class="author">Pavel Linhart</h4>
+<h4 class="date">2019-05-09</h4>
+
+
+
+<p>Welcome to IDmeasurer.</p>
+<div id="contents" class="section level2">
+<h2>Contents</h2>
+<ul>
+<li><a href="#univmet">Univariate individual identity metrics (F, PIC, HS)</a></li>
+<li><a href="#multivmet">Multivariate individual identity metrics (DS, MI, HS, HM)</a></li>
+<li><a href="#convmet">Conversions between metrics</a></li>
+</ul>
+</div>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p><code>IDmeasurer</code> package accompanies the research article reviewing metrics that have been suggested and used to measure indivdual identity in animal signals. It allows calculation of different individual identity metrics and aims to provide common tools for scholars studying individual identity in animal signals.</p>
+<p>The research article discussing these metrics in detail is available <a href="https://www.biorxiv.org/content/10.1101/546143v1">here</a>.</p>
+<p>Individual identity traits could be continuous (e.g., calling frequency, size) or discrete (e.g., presence of particular spot or pattern, presence of particular element in song). They also could be considered static (e.g., colour of an eye in humans), which remain constant or unchanged over a long time, or dynamic (e.g., voice pitch), which vary over time and depending on situation. The metrics reviewed here, in principle, could be used with any type of individual identity trait. Functions to calculate these metrics presented in this package, however, would currently be suitable for continuous and dynamic traits. The package now does not handle discrete and/or static traits, which reflects the current needs of authors’ research. It is possible that working with discrete and/or static traits would be added in future.</p>
+<p>The package comes with the six empirical datasets which are also referred to in the research article. All of the datsets present data on individual identity in animal acoustic signals - calls and songs.</p>
+<p>Load the package:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(IDmeasurer)</a></code></pre></div>
+<p>The functions calculating individual identity metrics in this package, in general, use imput in form of a data frame with the first column containing individual identity codes (factor) and and with subsequent columns containing measurements of a single or several different traits (numeric). The functions to calculate identity metrics do not tranform the raw trait variables in any way so any required data transformation need to be done prior to calculating individuality metrics. The package involves six empirical datasets used in the article (<code>ANmodulation</code>, <code>ANspec</code>, <code>CCformants</code>, <code>CCspec</code>, <code>LAhighweewoo</code>, <code>SSgrunts</code>).</p>
+<p>An example of the typical data:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">summary</span>(CCformants)</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="co">#&gt;        id           s1f2           s1f3           s1f4           s1f5     </span></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="co">#&gt;  2      : 10   Min.   :1651   Min.   :2896   Min.   :3844   Min.   :5319  </span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt;  48     : 10   1st Qu.:1996   1st Qu.:3152   1st Qu.:4649   1st Qu.:5747  </span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt;  56     : 10   Median :2168   Median :3456   Median :4835   Median :6020  </span></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="co">#&gt;  59     : 10   Mean   :2194   Mean   :3614   Mean   :5014   Mean   :6187  </span></a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="co">#&gt;  64     : 10   3rd Qu.:2362   3rd Qu.:4034   3rd Qu.:5519   3rd Qu.:6717  </span></a>
+<a class="sourceLine" id="cb2-8" title="8"><span class="co">#&gt;  74     : 10   Max.   :2798   Max.   :4616   Max.   :6085   Max.   :7170  </span></a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="co">#&gt;  (Other):270</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">CCformants[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>,]</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co">#&gt;    id s1f2 s1f3 s1f4 s1f5</span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co">#&gt; 1   2 2668 4034 5424 6419</span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co">#&gt; 2   2 2660 4060 5435 6416</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co">#&gt; 3   2 2669 4136 5532 6409</span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt; 4   2 2661 4103 5505 6386</span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="co">#&gt; 5   2 2657 4046 5459 6434</span></a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt; 6   2 2681 4103 5478 6434</span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt; 7   2 2663 4083 5491 6415</span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt; 8   2 2685 4089 5454 6416</span></a>
+<a class="sourceLine" id="cb3-11" title="11"><span class="co">#&gt; 9   2 2677 4074 5452 6425</span></a>
+<a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt; 10  2 2656 4137 5522 6416</span></a>
+<a class="sourceLine" id="cb3-13" title="13"><span class="co">#&gt; 11 48 2251 4009 5503 6450</span></a>
+<a class="sourceLine" id="cb3-14" title="14"><span class="co">#&gt; 12 48 2242 3961 5536 6464</span></a>
+<a class="sourceLine" id="cb3-15" title="15"><span class="co">#&gt; 13 48 2247 3965 5523 6444</span></a>
+<a class="sourceLine" id="cb3-16" title="16"><span class="co">#&gt; 14 48 2249 4005 5536 6427</span></a>
+<a class="sourceLine" id="cb3-17" title="17"><span class="co">#&gt; 15 48 2241 3988 5549 6440</span></a>
+<a class="sourceLine" id="cb3-18" title="18"><span class="co">#&gt; 16 48 2232 4027 5555 6399</span></a>
+<a class="sourceLine" id="cb3-19" title="19"><span class="co">#&gt; 17 48 2268 4012 5459 6382</span></a>
+<a class="sourceLine" id="cb3-20" title="20"><span class="co">#&gt; 18 48 2251 3981 5441 6405</span></a>
+<a class="sourceLine" id="cb3-21" title="21"><span class="co">#&gt; 19 48 2233 4040 5507 6416</span></a>
+<a class="sourceLine" id="cb3-22" title="22"><span class="co">#&gt; 20 48 2240 3987 5520 6440</span></a></code></pre></div>
+<p>Use <code>?CCformants</code> etc., to get background information about datasets.</p>
+<p><a href="#contents">Back to Contents</a></p>
+</div>
+<div id="univmet" class="section level2">
+<h2>Univariate individual identity metrics</h2>
+<ul>
+<li><a href="#f">ANOVA F-value</a></li>
+<li><a href="#pic">Potential of individual coding (PIC)</a></li>
+<li><a href="#hs">Beecher’s information statistic (HS)</a></li>
+</ul>
+<p>Univariate metrics quantify individual identity contained within a single trait. Function <code>GenerateUnivariate</code> generates univariate dataset with desired parameters.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">id0 &lt;-<span class="st"> </span><span class="kw">GenerateUnivariate</span>(<span class="dt">nindivs=</span><span class="dv">10</span>, <span class="dt">nobs=</span><span class="dv">10</span>, <span class="dt">betweenM=</span><span class="dv">1000</span>, <span class="dt">individuality=</span><span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb4-2" title="2">id3 &lt;-<span class="st"> </span><span class="kw">GenerateUnivariate</span>(<span class="dt">nindivs=</span><span class="dv">10</span>, <span class="dt">nobs=</span><span class="dv">10</span>, <span class="dt">betweenM=</span><span class="dv">1000</span>, <span class="dt">individuality=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">boxplot</span>(paramvec<span class="op">~</span>id, <span class="dt">data=</span>id0, <span class="dt">xlab =</span> <span class="st">&#39;Individual no.&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;variable 1&#39;</span>, <span class="dt">main =</span> <span class="st">&#39;Individuality = 0.01&#39;</span>)</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw">boxplot</span>(paramvec<span class="op">~</span>id, <span class="dt">data=</span>id3, <span class="dt">xlab =</span> <span class="st">&#39;Individual no.&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;variable 1&#39;</span>, <span class="dt">main =</span> <span class="st">&#39;Individuality = 3&#39;</span>)</a></code></pre></div>
+<p><img src="data:image/png;base64,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" /><img src="data:image/png;base64,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" /></p>
+<p>In both datasets, the mean of the trait is equal to 1000. Standard deviation between individual means (SDbetween) is implicitly set to 1 in the function. Because SDbetween is fixed, <code>individuality</code> parameter basically changes stanadard deviation of values within individuals (SDwithin). When <code>individuality</code> is close to zero, within individual variation is high. Parameter <code>individuality</code> has to be larger than 0.</p>
+<p><a href="#contents">Back to Contents</a></p>
+<div id="f" class="section level3">
+<h3>ANOVA F-value (F)</h3>
+<p>First quantification of individual identity in animal signals was done by using F-values from one-way ANOVA with individual identity as an independent variable and a trait as a dependent variable (F).</p>
+<p>Differences between individuals are large and significant in the <code>id3</code> dataset:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">calcF</span>(id0)</a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="co">#&gt;     traits    f pvals</span></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="co">#&gt; 1 paramvec 1.25 0.274</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="kw">calcF</span>(id3)</a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="co">#&gt;     traits      f pvals</span></a>
+<a class="sourceLine" id="cb6-6" title="6"><span class="co">#&gt; 1 paramvec 125.31     0</span></a></code></pre></div>
+<p>However, F-values reflect sample size of a dataset (number of observations for each individual) and, therefore, are not ideal for comparisons between studies with different number of observations per individual. Studies with many observations per individual will be more likely to report high individuality when using F-value as an individuality metric.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">fewobs &lt;-<span class="st"> </span><span class="kw">GenerateUnivariate</span>(<span class="dt">nindivs=</span><span class="dv">10</span>, <span class="dt">nobs=</span><span class="dv">10</span>, <span class="dt">betweenM=</span><span class="dv">1000</span>, <span class="dt">individuality=</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb7-2" title="2">manyobs &lt;-<span class="st"> </span><span class="kw">GenerateUnivariate</span>(<span class="dt">nindivs=</span><span class="dv">10</span>, <span class="dt">nobs=</span><span class="dv">50</span>, <span class="dt">betweenM=</span><span class="dv">1000</span>, <span class="dt">individuality=</span><span class="fl">0.5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">calcF</span>(fewobs)</a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="co">#&gt;     traits   f pvals</span></a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="co">#&gt; 1 paramvec 3.5 0.001</span></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="kw">calcF</span>(manyobs)</a>
+<a class="sourceLine" id="cb8-5" title="5"><span class="co">#&gt;     traits    f pvals</span></a>
+<a class="sourceLine" id="cb8-6" title="6"><span class="co">#&gt; 1 paramvec 8.61     0</span></a></code></pre></div>
+<p>The dataset with many observations per individual <code>manyobs</code> has much larger F than the dataset with few observations per individual ‘fewobs’ despite the differences between individuals in both datasets are similar (Individuality = 0.5)</p>
+<p>Because of this problem, alternative metrics were introduced.</p>
+<p><a href="#contents">Back to Contents</a></p>
+</div>
+<div id="pic" class="section level3">
+<h3>Potential of individual coding (PIC)</h3>
+<p>Potential of individual coding (PIC) is based on the coefficent of variation which itself is sample independent. PIC is the ratio of between and within individual coefficents of variation and it is robust to number of observarions per individual (as well as to number of individuals in dataset).</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">calcPIC</span>(fewobs)</a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="co">#&gt; paramvec </span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="co">#&gt; 1.119582</span></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="kw">calcPIC</span>(manyobs)</a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="co">#&gt; paramvec </span></a>
+<a class="sourceLine" id="cb9-6" title="6"><span class="co">#&gt; 1.070051</span></a></code></pre></div>
+<p>Using PIC is fine until we want to quantify individuality in a trait which has negative and positive values because in that case coefficients of variations do not make sense.</p>
+<p>Note that individuality in the data remains the same and we only change the mean of the trait to be 0 (and thus negative and positive values are generated around this mean). However, PIC value is strongly affected.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">postrait &lt;-<span class="st"> </span><span class="kw">GenerateUnivariate</span>(<span class="dt">nindivs=</span><span class="dv">10</span>, <span class="dt">nobs=</span><span class="dv">10</span>, <span class="dt">betweenM=</span><span class="dv">1000</span>, <span class="dt">individuality=</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb10-2" title="2">posnegtrait &lt;-<span class="st"> </span><span class="kw">GenerateUnivariate</span>(<span class="dt">nindivs=</span><span class="dv">10</span>, <span class="dt">nobs=</span><span class="dv">10</span>, <span class="dt">betweenM=</span><span class="dv">0</span>, <span class="dt">individuality=</span><span class="fl">0.5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">calcPIC</span>(postrait)</a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="co">#&gt; paramvec </span></a>
+<a class="sourceLine" id="cb11-3" title="3"><span class="co">#&gt;  1.05249</span></a>
+<a class="sourceLine" id="cb11-4" title="4"><span class="kw">calcPIC</span>(posnegtrait)</a>
+<a class="sourceLine" id="cb11-5" title="5"><span class="co">#&gt; paramvec </span></a>
+<a class="sourceLine" id="cb11-6" title="6"><span class="co">#&gt; 5.907797</span></a></code></pre></div>
+<p><strong>Variants of PIC</strong>. In the literature, two variants of PIC were used depending on the way how between individual coefficient variation is calculated. Both ways can be called with functions <code>calcPICbetweentot</code> and <code>calcPICbetweenmeans</code>. The function <code>calcPIC</code> is equivalent to the <code>calcPICbetweentot</code> because values of <code>calcPICbetweentot</code> converge towards 1 with individuality approaching 0, and, hence, reflect the number of unique individual identity signatures in simalr way as 2^HS does.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">calcPIC</span>(id0)</a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="co">#&gt; paramvec </span></a>
+<a class="sourceLine" id="cb12-3" title="3"><span class="co">#&gt; 1.019679</span></a>
+<a class="sourceLine" id="cb12-4" title="4"><span class="kw">calcPICbetweentot</span>(id0)</a>
+<a class="sourceLine" id="cb12-5" title="5"><span class="co">#&gt; paramvec </span></a>
+<a class="sourceLine" id="cb12-6" title="6"><span class="co">#&gt; 1.019679</span></a>
+<a class="sourceLine" id="cb12-7" title="7"><span class="kw">calcPICbetweenmeans</span>(id0)</a>
+<a class="sourceLine" id="cb12-8" title="8"><span class="co">#&gt;  paramvec </span></a>
+<a class="sourceLine" id="cb12-9" title="9"><span class="co">#&gt; 0.3567565</span></a></code></pre></div>
+<p><a href="#contents">Back to Contents</a></p>
+</div>
+<div id="hs" class="section level3">
+<h3>Beecher’s information statistic (HS)</h3>
+<p>Beecher’s information statistic (HS) uses ANOVA F-value but makes it sampling independent. HS is robust to number of observarions per individual as well as to number of individuals in dataset.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">calcHS</span>(fewobs)[<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb13-2" title="2"><span class="co">#&gt; HS for all vars </span></a>
+<a class="sourceLine" id="cb13-3" title="3"><span class="co">#&gt;            0.16</span></a>
+<a class="sourceLine" id="cb13-4" title="4"><span class="kw">calcHS</span>(manyobs)[<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb13-5" title="5"><span class="co">#&gt; HS for all vars </span></a>
+<a class="sourceLine" id="cb13-6" title="6"><span class="co">#&gt;             0.1</span></a></code></pre></div>
+<p>It can also handle traits with negative and positive values.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">calcHS</span>(postrait)[<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="co">#&gt; HS for all vars </span></a>
+<a class="sourceLine" id="cb14-3" title="3"><span class="co">#&gt;            0.06</span></a>
+<a class="sourceLine" id="cb14-4" title="4"><span class="kw">calcHS</span>(posnegtrait)[<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb14-5" title="5"><span class="co">#&gt; HS for all vars </span></a>
+<a class="sourceLine" id="cb14-6" title="6"><span class="co">#&gt;            0.07</span></a></code></pre></div>
+<p>This is very important advantage because it allows transforming trait variables. For example, it is possible to use Principal Component Analysis (PCA) on the raw traits and calculate HS of of the uncorrelated Principal components and sum them together to get the HS for an entire signal. Note that summing or averaging of PIC values is not a valid approach because the traits can be (and often are) correlated and, therefore, the resulting PIC values are overestimated.</p>
+<p>Both HS and PIC are looking for the ratio of between and within individual variation and their values are closely related, but to see this, we have to convert HS into the number of potentially unique signatures. HS is expressed in bits of information and to convert it into number of signatures we have to use 2 as the base and and HS as an exponent. In that case, HS and PIC correlate almost perfectly, eventhough they are not numerically entirely equivalent.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1">id1 &lt;-<span class="st"> </span><span class="kw">GenerateUnivariate</span>(<span class="dt">nindivs=</span><span class="dv">10</span>, <span class="dt">nobs=</span><span class="dv">10</span>, <span class="dt">betweenM=</span><span class="dv">1000</span>, <span class="dt">individuality=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb15-2" title="2">id2 &lt;-<span class="st"> </span><span class="kw">GenerateUnivariate</span>(<span class="dt">nindivs=</span><span class="dv">10</span>, <span class="dt">nobs=</span><span class="dv">10</span>, <span class="dt">betweenM=</span><span class="dv">1000</span>, <span class="dt">individuality=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb15-3" title="3">id3 &lt;-<span class="st"> </span><span class="kw">GenerateUnivariate</span>(<span class="dt">nindivs=</span><span class="dv">10</span>, <span class="dt">nobs=</span><span class="dv">10</span>, <span class="dt">betweenM=</span><span class="dv">1000</span>, <span class="dt">individuality=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb15-4" title="4">id4 &lt;-<span class="st"> </span><span class="kw">GenerateUnivariate</span>(<span class="dt">nindivs=</span><span class="dv">10</span>, <span class="dt">nobs=</span><span class="dv">10</span>, <span class="dt">betweenM=</span><span class="dv">1000</span>, <span class="dt">individuality=</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb15-5" title="5"></a>
+<a class="sourceLine" id="cb15-6" title="6">PICs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">calcPIC</span>(id1), <span class="kw">calcPIC</span>(id2), <span class="kw">calcPIC</span>(id3), <span class="kw">calcPIC</span>(id4))</a>
+<a class="sourceLine" id="cb15-7" title="7">HSs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">calcHS</span>(id1)[<span class="dv">2</span>], <span class="kw">calcHS</span>(id2)[<span class="dv">2</span>], <span class="kw">calcHS</span>(id3)[<span class="dv">2</span>], <span class="kw">calcHS</span>(id4)[<span class="dv">2</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">plot</span>((<span class="dv">2</span><span class="op">^</span>HSs) <span class="op">~</span><span class="st"> </span>PICs, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">5</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">5</span>), <span class="dt">pch=</span><span class="dv">16</span>)</a>
+<a class="sourceLine" id="cb16-2" title="2"><span class="kw">abline</span>(<span class="kw">lm</span>((<span class="dv">2</span><span class="op">^</span>HSs) <span class="op">~</span><span class="st"> </span>PICs))</a></code></pre></div>
+<div class="figure">
+<img src="data:image/png;base64,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" alt="Large overlap of trait values suggests low individuality" />
+<p class="caption">Large overlap of trait values suggests low individuality</p>
+</div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw">calcPIC</span>(id4)</a>
+<a class="sourceLine" id="cb17-2" title="2"><span class="co">#&gt; paramvec </span></a>
+<a class="sourceLine" id="cb17-3" title="3"><span class="co">#&gt; 3.582682</span></a>
+<a class="sourceLine" id="cb17-4" title="4"><span class="dv">2</span><span class="op">^</span><span class="kw">calcHS</span>(id4)[<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb17-5" title="5"><span class="co">#&gt; HS for all vars </span></a>
+<a class="sourceLine" id="cb17-6" title="6"><span class="co">#&gt;        3.706352</span></a></code></pre></div>
+<p><strong>Variants of HS</strong>. In the literature, HS has been calculated by several different approaches. These approaches are implemented in functions: <code>calcHSntot</code>, <code>calcHSngroups</code>, <code>calcHSnpergroup</code>, and <code>calcHSvarcomp</code>. <code>calcHS</code> is equivalent to <code>calcHSnpergroup</code> because it matches the assumptions stated in the original article by Beecher (1989) (see <code>?calcHS</code> for the reference). Unlike the other variants, <code>calcHSvarcomp</code> calculates HS by ucing variance components from mixed models. This approach allows to control for possible confounding factors and variables in the model, however, we found the values to be twice as large as the values of HS calculated with <code>calcHS</code>.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw">calcHS</span>(id3)</a>
+<a class="sourceLine" id="cb18-2" title="2"><span class="co">#&gt; HS for significant vars         HS for all vars </span></a>
+<a class="sourceLine" id="cb18-3" title="3"><span class="co">#&gt;                    1.67                    1.67</span></a>
+<a class="sourceLine" id="cb18-4" title="4"><span class="kw">calcHSnpergroup</span>(id3)</a>
+<a class="sourceLine" id="cb18-5" title="5"><span class="co">#&gt; HS for significant vars         HS for all vars </span></a>
+<a class="sourceLine" id="cb18-6" title="6"><span class="co">#&gt;                    1.67                    1.67</span></a>
+<a class="sourceLine" id="cb18-7" title="7"><span class="kw">calcHSntot</span>(id3)</a>
+<a class="sourceLine" id="cb18-8" title="8"><span class="co">#&gt; HS for significant vars         HS for all vars </span></a>
+<a class="sourceLine" id="cb18-9" title="9"><span class="co">#&gt;                    0.47                    0.47</span></a>
+<a class="sourceLine" id="cb18-10" title="10"><span class="kw">calcHSngroups</span>(id3)</a>
+<a class="sourceLine" id="cb18-11" title="11"><span class="co">#&gt; HS for significant vars         HS for all vars </span></a>
+<a class="sourceLine" id="cb18-12" title="12"><span class="co">#&gt;                    1.67                    1.67</span></a>
+<a class="sourceLine" id="cb18-13" title="13"><span class="kw">calcHSvarcomp</span>(id3)</a>
+<a class="sourceLine" id="cb18-14" title="14"><span class="co">#&gt; HS for all vars </span></a>
+<a class="sourceLine" id="cb18-15" title="15"><span class="co">#&gt;            3.34</span></a></code></pre></div>
+<p><a href="#contents">Back to Contents</a></p>
+</div>
+<div id="univariate-metrics-with-multivariate-datasets" class="section level3">
+<h3>Univariate metrics with multivariate datasets</h3>
+<p>All the three functions can be used with multivariate datasets containing the identity codes in a first column and multiple traits in subsequent columns. In that case, metrics are calculated for each trait variable. For calculation of HS for separate variables the parameter sumHS must be set to FALSE.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw">calcF</span>(CCformants)</a>
+<a class="sourceLine" id="cb19-2" title="2"><span class="co">#&gt;   traits       f pvals</span></a>
+<a class="sourceLine" id="cb19-3" title="3"><span class="co">#&gt; 1   s1f2  964.26     0</span></a>
+<a class="sourceLine" id="cb19-4" title="4"><span class="co">#&gt; 2   s1f3 1153.80     0</span></a>
+<a class="sourceLine" id="cb19-5" title="5"><span class="co">#&gt; 3   s1f4 1089.05     0</span></a>
+<a class="sourceLine" id="cb19-6" title="6"><span class="co">#&gt; 4   s1f5  818.22     0</span></a>
+<a class="sourceLine" id="cb19-7" title="7"><span class="kw">calcPIC</span>(CCformants)</a>
+<a class="sourceLine" id="cb19-8" title="8"><span class="co">#&gt;     s1f2     s1f3     s1f4     s1f5 </span></a>
+<a class="sourceLine" id="cb19-9" title="9"><span class="co">#&gt; 10.81532 13.25913 13.89994 12.99410</span></a>
+<a class="sourceLine" id="cb19-10" title="10"><span class="kw">calcHS</span>(CCformants, <span class="dt">sumHS=</span>F)</a>
+<a class="sourceLine" id="cb19-11" title="11"><span class="co">#&gt;   vars Pr   HS</span></a>
+<a class="sourceLine" id="cb19-12" title="12"><span class="co">#&gt; 2 s1f2  0 3.30</span></a>
+<a class="sourceLine" id="cb19-13" title="13"><span class="co">#&gt; 3 s1f3  0 3.43</span></a>
+<a class="sourceLine" id="cb19-14" title="14"><span class="co">#&gt; 4 s1f4  0 3.39</span></a>
+<a class="sourceLine" id="cb19-15" title="15"><span class="co">#&gt; 5 s1f5  0 3.19</span></a></code></pre></div>
+<p><a href="#contents">Back to Contents</a></p>
+</div>
+</div>
+<div id="multivmet" class="section level2">
+<h2>Multivariate individual identity metrics</h2>
+<ul>
+<li><a href="#ds">Discrimination score (DS)</a></li>
+<li><a href="#mi">Mutual information (MI)</a></li>
+<li><a href="#hsmultiv">Beecher’s information statistic (HS)</a></li>
+<li><a href="#hm">Information capacity (HM)</a></li>
+</ul>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw">library</span>(MASS)</a></code></pre></div>
+<p>Multivariate metrics quantify individual identity contained in multiple traits of signal. Function <code>GenerateMultivariate</code> generates multivariate dataset with desired parameters.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1">id0 &lt;-<span class="st"> </span><span class="kw">GenerateMultivariate</span>(<span class="dt">nindivs=</span><span class="dv">5</span>, <span class="dt">nobs=</span><span class="dv">10</span>, <span class="dt">nvar=</span><span class="dv">2</span>, <span class="dt">covar=</span><span class="fl">0.9</span>, <span class="dt">individuality=</span><span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb21-2" title="2">id5 &lt;-<span class="st"> </span><span class="kw">GenerateMultivariate</span>(<span class="dt">nindivs=</span><span class="dv">5</span>, <span class="dt">nobs=</span><span class="dv">10</span>, <span class="dt">nvar=</span><span class="dv">2</span>, <span class="dt">covar=</span><span class="fl">0.9</span>, <span class="dt">individuality=</span><span class="dv">5</span>)</a></code></pre></div>
+<p>We generated two datasets with same properties (5 individuals, 10 observations per individual, two trait variables with covariance 0.9 between the two variables) except individuality which is low for <code>id0</code> and high for <code>id5</code>. High individuality is clearly visible in the scatterplot of the two traits where samples belonging to the same individual are plotted with the same colour and form clearly recognizable clusters.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="kw">plot</span>(id0[,<span class="dv">2</span>], id0[,<span class="dv">3</span>], <span class="dt">xlab=</span><span class="st">&#39;trait 1&#39;</span>, <span class="dt">ylab=</span><span class="st">&#39;trait 2&#39;</span>, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">col=</span>id0[,<span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb22-2" title="2"><span class="kw">plot</span>(id5[,<span class="dv">2</span>], id5[,<span class="dv">3</span>], <span class="dt">xlab=</span><span class="st">&#39;trait 1&#39;</span>, <span class="dt">ylab=</span><span class="st">&#39;trait 2&#39;</span>, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">col=</span>id5[,<span class="dv">1</span>])</a></code></pre></div>
+<p><img src="data:image/png;base64,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" /><img src="data:image/png;base64,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" /></p>
+<p><a href="#contents">Back to Contents</a></p>
+<div id="ds" class="section level3">
+<h3>Discrimination score (DS)</h3>
+<p>Most of the studies subject similar data to the discriminant function analysis and calculate discrimination score - the proportion or percentage of the samples that were classified to the correct individual.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="kw">calcDS</span>(id0)</a>
+<a class="sourceLine" id="cb23-2" title="2"><span class="co">#&gt; [1] 0.16</span></a>
+<a class="sourceLine" id="cb23-3" title="3"><span class="kw">calcDS</span>(id5)</a>
+<a class="sourceLine" id="cb23-4" title="4"><span class="co">#&gt; [1] 0.86</span></a></code></pre></div>
+<p>In case of <code>id0</code>, individuality is very low and it is hard to discriminate individuals. Hence, the value of DS should be close to value expected by chance classification (0.2 for 5 individuals). On the other hand, discrimination is easy and DS close to maximum value of 1 in case of <code>id5</code>.</p>
+<p>However, if with many individuals in the sample, it is more likely to find very similar individuals that are easy to confuse. Hence, discrimination score will be lower for large datasets. This is shown here on two datasets with the same individuality (individuality = 5) but few (<code>nindivs = 5</code>) and many (<code>nindivs = 100</code>) individuals.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1">id5fewinds &lt;-<span class="st"> </span><span class="kw">GenerateMultivariate</span>(<span class="dt">nindivs=</span><span class="dv">5</span>, <span class="dt">nobs=</span><span class="dv">10</span>, <span class="dt">nvar=</span><span class="dv">2</span>, <span class="dt">covar=</span><span class="fl">0.9</span>, <span class="dt">individuality=</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb24-2" title="2">id5manyinds &lt;-<span class="st"> </span><span class="kw">GenerateMultivariate</span>(<span class="dt">nindivs=</span><span class="dv">100</span>, <span class="dt">nobs=</span><span class="dv">10</span>, <span class="dt">nvar=</span><span class="dv">2</span>, <span class="dt">covar=</span><span class="fl">0.9</span>, <span class="dt">individuality=</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb24-3" title="3"><span class="kw">calcDS</span>(id5fewinds)</a>
+<a class="sourceLine" id="cb24-4" title="4"><span class="co">#&gt; [1] 0.94</span></a>
+<a class="sourceLine" id="cb24-5" title="5"><span class="kw">calcDS</span>(id5manyinds)</a>
+<a class="sourceLine" id="cb24-6" title="6"><span class="co">#&gt; [1] 0.276</span></a></code></pre></div>
+<p>We might try to adjust DS with regard to chance value to see how many times DS exceeds classification by chance. However, again, we do not get similar DS values for both datasets as would be expected based on the fact they are both genereated with the same individuality parameter. In this case, the bias was only reversed to favour large datasets.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw">calcDS</span>(id5fewinds)<span class="op">/</span><span class="fl">0.2</span> <span class="co"># expected classification by chance for 5 individuals: 1 / 5 = 0.2</span></a>
+<a class="sourceLine" id="cb25-2" title="2"><span class="co">#&gt; [1] 4.7</span></a>
+<a class="sourceLine" id="cb25-3" title="3"><span class="kw">calcDS</span>(id5manyinds)<span class="op">/</span><span class="fl">0.01</span> <span class="co"># expected classification by chance for 5 individuals: 1 / 100 = 0.01</span></a>
+<a class="sourceLine" id="cb25-4" title="4"><span class="co">#&gt; [1] 27.6</span></a></code></pre></div>
+<p>Tranforming the raw trait values into uncorrelated principal components with Principal Component Analysis has little impact on the DS values (HS, which is discussed later, requires PCA so this is shown here for comparison):</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw">calcDS</span>(<span class="kw">calcPCA</span>(id5fewinds))<span class="op">/</span><span class="fl">0.2</span> <span class="co"># expected classification by chance for 5 individuals: 1 / 5 = 0.2</span></a>
+<a class="sourceLine" id="cb26-2" title="2"><span class="co">#&gt; [1] 4.7</span></a>
+<a class="sourceLine" id="cb26-3" title="3"><span class="kw">calcDS</span>(<span class="kw">calcPCA</span>(id5manyinds))<span class="op">/</span><span class="fl">0.01</span> <span class="co"># expected classification by chance for 5 individuals: 1 / 100 = 0.01</span></a>
+<a class="sourceLine" id="cb26-4" title="4"><span class="co">#&gt; [1] 27.6</span></a></code></pre></div>
+<p>DS is also biased in respect to number of individuals in the sample.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1">id5fewobs &lt;-<span class="st"> </span><span class="kw">GenerateMultivariate</span>(<span class="dt">nindivs=</span><span class="dv">10</span>, <span class="dt">nobs=</span><span class="dv">5</span>, <span class="dt">nvar=</span><span class="dv">2</span>, <span class="dt">covar=</span><span class="fl">0.9</span>, <span class="dt">individuality=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb27-2" title="2">id5manyobs &lt;-<span class="st"> </span><span class="kw">GenerateMultivariate</span>(<span class="dt">nindivs=</span><span class="dv">10</span>, <span class="dt">nobs=</span><span class="dv">100</span>, <span class="dt">nvar=</span><span class="dv">2</span>, <span class="dt">covar=</span><span class="fl">0.9</span>, <span class="dt">individuality=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb27-3" title="3"><span class="kw">calcDS</span>(id5fewobs)</a>
+<a class="sourceLine" id="cb27-4" title="4"><span class="co">#&gt; [1] 0.22</span></a>
+<a class="sourceLine" id="cb27-5" title="5"><span class="kw">calcDS</span>(id5manyobs)</a>
+<a class="sourceLine" id="cb27-6" title="6"><span class="co">#&gt; [1] 0.277</span></a></code></pre></div>
+<p>Like in case of F-value in univariate case, if the values are biased it makes it difficult to compare the results of different studies with various sampling of individuals and observations per individual. Therefore, alternative metrics were suggested.</p>
+<p><a href="#contents">Back to Contents</a></p>
+</div>
+<div id="mi" class="section level3">
+<h3>Mutual information (MI)</h3>
+<p>Mutual information has been suggested as unbiased metric to complement DS. However, calcMI is subjected to the same kind of biases as DS, though these biases are reversed (like in case of DS adjusted for chance). For example, in case of number of individuals in dataset, DS will be higher for datasets with few individuals while MI will be higher for datasets with many individuals.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1">id5fewinds &lt;-<span class="st"> </span><span class="kw">GenerateMultivariate</span>(<span class="dt">nindivs=</span><span class="dv">5</span>, <span class="dt">nobs=</span><span class="dv">10</span>, <span class="dt">nvar=</span><span class="dv">2</span>, <span class="dt">covar=</span><span class="fl">0.9</span>, <span class="dt">individuality=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb28-2" title="2">id5manyinds &lt;-<span class="st"> </span><span class="kw">GenerateMultivariate</span>(<span class="dt">nindivs=</span><span class="dv">100</span>, <span class="dt">nobs=</span><span class="dv">10</span>, <span class="dt">nvar=</span><span class="dv">2</span>, <span class="dt">covar=</span><span class="fl">0.9</span>, <span class="dt">individuality=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb28-3" title="3"><span class="kw">calcDS</span>(id5fewinds)</a>
+<a class="sourceLine" id="cb28-4" title="4"><span class="co">#&gt; [1] 0.76</span></a>
+<a class="sourceLine" id="cb28-5" title="5"><span class="kw">calcDS</span>(id5manyinds)</a>
+<a class="sourceLine" id="cb28-6" title="6"><span class="co">#&gt; [1] 0.08</span></a>
+<a class="sourceLine" id="cb28-7" title="7"><span class="kw">calcMI</span>(id5fewinds)</a>
+<a class="sourceLine" id="cb28-8" title="8"><span class="co">#&gt; [1] 1.351647</span></a>
+<a class="sourceLine" id="cb28-9" title="9"><span class="kw">calcMI</span>(id5manyinds)</a>
+<a class="sourceLine" id="cb28-10" title="10"><span class="co">#&gt; [1] 3.412308</span></a></code></pre></div>
+<p><a href="#contents">Back to Contents</a></p>
+</div>
+<div id="hsmultiv" class="section level3">
+<h3>Beechers information statistic (HS)</h3>
+<p>HS can be used for univariate as well as for multivariate signals. It calculates and sums partial HS values of each variable. The result prints HS summed over all trait variables in dataset or over traits that are significantly different between individuals only. Since non-significant variables contribute only a little to final value of HS we suggest to report HS for all variables.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw">calcHS</span>(<span class="kw">calcPCA</span>(id5), <span class="dt">sumHS=</span>T)</a>
+<a class="sourceLine" id="cb29-2" title="2"><span class="co">#&gt; HS for significant vars         HS for all vars </span></a>
+<a class="sourceLine" id="cb29-3" title="3"><span class="co">#&gt;                    3.56                    3.56</span></a></code></pre></div>
+<p>Note, that HS for multivariate signal needs to be calculated on uncorrelated variables. Here, we use the function <code>calcPCA</code> which uses Principal Component Analysis PCA to convert the raw trait variables into uncorrelated Principal components in the dataset. Including correlated variables overestimates the value of HS:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1"><span class="kw">calcHS</span>(id5, <span class="dt">sumHS=</span>T) <span class="co"># HS is overestimated if trait variables are correlated</span></a>
+<a class="sourceLine" id="cb30-2" title="2"><span class="co">#&gt; HS for significant vars         HS for all vars </span></a>
+<a class="sourceLine" id="cb30-3" title="3"><span class="co">#&gt;                    4.35                    4.35</span></a></code></pre></div>
+<p>Also note, that for good estimate of HS values the number of trait variables should not exceed the number of individuals. For discussion of this issue, see the research article introducing this package by Linhart et al. (2019).</p>
+<p><a href="#contents">Back to Contents</a></p>
+</div>
+<div id="hm" class="section level3">
+<h3>Information capacity (HM)</h3>
+<p>HM has been suggested as variant of HS for particular type of signals where the variable traits are independent of each other. However, HS can be used for such signals as well.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1">id5 &lt;-<span class="st"> </span><span class="kw">GenerateMultivariate</span>(<span class="dt">nindivs=</span><span class="dv">10</span>, <span class="dt">nobs=</span><span class="dv">10</span>, <span class="dt">nvar=</span><span class="dv">2</span>, <span class="dt">covar=</span><span class="dv">0</span>, <span class="dt">individuality=</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb31-2" title="2"><span class="kw">calcHS</span>(id5)</a>
+<a class="sourceLine" id="cb31-3" title="3"><span class="co">#&gt; HS for significant vars         HS for all vars </span></a>
+<a class="sourceLine" id="cb31-4" title="4"><span class="co">#&gt;                     4.9                     4.9</span></a></code></pre></div>
+<p>HM is an adaptation of HS and is also expressed in bits (bits of individual identity information) but the value is surprisingly different.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="kw">calcHM</span>(id5)</a>
+<a class="sourceLine" id="cb32-2" title="2"><span class="co">#&gt; [1] 2.461237</span></a></code></pre></div>
+<p>It turns out that for cases in which trait variables are independent, HM calculates individual identity information per variable. In our case, we have two trait variables in signal and hance we need to multiply HM by 2 to get identity information in the entire signal. Now, the value is almost identical to HS calculated above.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1"><span class="kw">calcHM</span>(id5)<span class="op">*</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb33-2" title="2"><span class="co">#&gt; [1] 4.922473</span></a></code></pre></div>
+<p>We can try to generate datasets with different individualities to see how the HS and HM values match each other. We will also change number of variables to 5.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1">id1 &lt;-<span class="st"> </span><span class="kw">GenerateMultivariate</span>(<span class="dt">nindivs=</span><span class="dv">10</span>, <span class="dt">nobs=</span><span class="dv">10</span>, <span class="dt">nvar=</span><span class="dv">5</span>, <span class="dt">covar=</span><span class="dv">0</span>, <span class="dt">individuality=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb34-2" title="2">id3 &lt;-<span class="st"> </span><span class="kw">GenerateMultivariate</span>(<span class="dt">nindivs=</span><span class="dv">10</span>, <span class="dt">nobs=</span><span class="dv">10</span>, <span class="dt">nvar=</span><span class="dv">5</span>, <span class="dt">covar=</span><span class="dv">0</span>, <span class="dt">individuality=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb34-3" title="3">id5 &lt;-<span class="st"> </span><span class="kw">GenerateMultivariate</span>(<span class="dt">nindivs=</span><span class="dv">10</span>, <span class="dt">nobs=</span><span class="dv">10</span>, <span class="dt">nvar=</span><span class="dv">5</span>, <span class="dt">covar=</span><span class="dv">0</span>, <span class="dt">individuality=</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb34-4" title="4">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">calcHS</span>(id1)[<span class="dv">2</span>],<span class="kw">calcHS</span>(id3)[<span class="dv">2</span>],<span class="kw">calcHS</span>(id5)[<span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb34-5" title="5">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">calcHM</span>(id1)<span class="op">*</span><span class="dv">5</span>, <span class="kw">calcHM</span>(id3)<span class="op">*</span><span class="dv">5</span>, <span class="kw">calcHM</span>(id5)<span class="op">*</span><span class="dv">5</span>) <span class="co"># HM is multiplied by 5 because we have 5 trait variables.</span></a>
+<a class="sourceLine" id="cb34-6" title="6"><span class="kw">plot</span>(x,y)</a>
+<a class="sourceLine" id="cb34-7" title="7"><span class="kw">abline</span>(<span class="kw">lm</span>(y<span class="op">~</span>x))</a></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>Problem arises, if the trait variables are correlated.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1">id5covar0 &lt;-<span class="st"> </span><span class="kw">GenerateMultivariate</span>(<span class="dt">nindivs=</span><span class="dv">50</span>, <span class="dt">nobs=</span><span class="dv">10</span>, <span class="dt">nvar=</span><span class="dv">5</span>, <span class="dt">covar=</span><span class="dv">0</span>, <span class="dt">individuality=</span><span class="dv">5</span>) <span class="co"># uncorrelated traits</span></a>
+<a class="sourceLine" id="cb35-2" title="2">id5covar1 &lt;-<span class="st"> </span><span class="kw">GenerateMultivariate</span>(<span class="dt">nindivs=</span><span class="dv">50</span>, <span class="dt">nobs=</span><span class="dv">10</span>, <span class="dt">nvar=</span><span class="dv">5</span>, <span class="dt">covar=</span><span class="dv">1</span>, <span class="dt">individuality=</span><span class="dv">5</span>) <span class="co"># perfectly correlated traits</span></a></code></pre></div>
+<p>In such cases, HS correctly reflects lower real dimensionality of the data and hence, lower total individual identity of a signal.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1"><span class="kw">calcHS</span>(<span class="kw">calcPCA</span>(id5covar0))</a>
+<a class="sourceLine" id="cb36-2" title="2"><span class="co">#&gt; HS for significant vars         HS for all vars </span></a>
+<a class="sourceLine" id="cb36-3" title="3"><span class="co">#&gt;                   11.57                   11.57</span></a>
+<a class="sourceLine" id="cb36-4" title="4"><span class="kw">calcHS</span>(<span class="kw">calcPCA</span>(id5covar1))</a>
+<a class="sourceLine" id="cb36-5" title="5"><span class="co">#&gt; HS for significant vars         HS for all vars </span></a>
+<a class="sourceLine" id="cb36-6" title="6"><span class="co">#&gt;                    3.51                    3.50</span></a></code></pre></div>
+<p>Lower dimensionality is also reflected in higher overlap of values between individuals and, hence, in lower discrimination of individuals.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1"><span class="kw">calcDS</span>(<span class="kw">calcPCA</span>(id5covar0))</a>
+<a class="sourceLine" id="cb37-2" title="2"><span class="co">#&gt; [1] 0.988</span></a>
+<a class="sourceLine" id="cb37-3" title="3"><span class="kw">calcDS</span>(<span class="kw">calcPCA</span>(id5covar1))</a>
+<a class="sourceLine" id="cb37-4" title="4"><span class="co">#&gt; [1] 0.294</span></a></code></pre></div>
+<p>Contrary, HM remains nearly unchanged and we would need to do separate analysis of dimensionality of data to estimate identity information of the entire signal. Simple multiplying HM by number of variables would overestimate individual identity information in case that traits are correlated.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1"><span class="kw">calcHM</span>(<span class="kw">calcPCA</span>(id5covar0))<span class="op">*</span><span class="dv">5</span> <span class="co"># HM is multiplied by the number of variables to get individuality of entire signal</span></a>
+<a class="sourceLine" id="cb38-2" title="2"><span class="co">#&gt; [1] 11.7644</span></a>
+<a class="sourceLine" id="cb38-3" title="3"><span class="kw">calcHM</span>(<span class="kw">calcPCA</span>(id5covar1))<span class="op">*</span><span class="dv">5</span> <span class="co"># In this case, total individuality of entire signal is overestimated</span></a>
+<a class="sourceLine" id="cb38-4" title="4"><span class="co">#&gt; [1] 11.92642</span></a></code></pre></div>
+<p><a href="#contents">Back to Contents</a></p>
+</div>
+</div>
+<div id="convmet" class="section level2">
+<h2>Conversions between metrics</h2>
+<p>We believe that in future studies HS will be routinely reported as it is currently the best performing and the most universal individual identity metric available. However, in past, various metrics were used and converting between the commonly used metric could help to compare results of different studies. As we have shown earlier, PIC can be viewed as equivalent to 2^HS and, therefore, the conversion is easy in case of univariate metrics. The most frequently used metric in multivariate case was DS. To convert DS to HS and vice versa, we simulated datasets with changing parameters (number of individuals and number of observations per individual) and used loess regression model to estimate values of HS based on DS (or DS based on HS) for a particular number of individuals and number of observations per individual in the sample. Note that loess model cannot predict values outside the values used to build the model, therefore the parameters must be within:</p>
+<ul>
+<li>5 - 40 individuals</li>
+<li>5 - 20 observations per individual</li>
+<li>0 - 12.9 bits for HS value</li>
+<li>0 - 1 for DS value</li>
+</ul>
+<p>This range of the parameters should suit to most of the published results.</p>
+<p>HS can be estimated from DS with <code>convertDStoHS</code> and DS can be estimated from HS with <code>convertHStoDS</code> functions.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1">temp &lt;-<span class="st"> </span><span class="kw">GenerateMultivariate</span>(<span class="dt">nindivs=</span><span class="dv">20</span>, <span class="dt">nobs=</span><span class="dv">10</span>, <span class="dt">nvar=</span><span class="dv">2</span>, <span class="dt">covar=</span><span class="dv">0</span>, <span class="dt">individuality=</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb39-2" title="2">HS &lt;-<span class="st"> </span><span class="kw">calcHS</span>(temp)[<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb39-3" title="3">DS &lt;-<span class="st"> </span><span class="kw">calcDS</span>(temp)</a>
+<a class="sourceLine" id="cb39-4" title="4">HSest &lt;-<span class="st"> </span><span class="kw">convertDStoHS</span>(<span class="dt">nindivs=</span><span class="dv">10</span>, <span class="dt">nobs=</span><span class="dv">10</span>, <span class="dt">DS=</span>DS)</a>
+<a class="sourceLine" id="cb39-5" title="5"><span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&#39;real HS = &#39;</span>, HS, <span class="st">&#39;; estimated HSest = &#39;</span>, <span class="kw">round</span>(HSest, <span class="dv">2</span>)))</a>
+<a class="sourceLine" id="cb39-6" title="6"><span class="co">#&gt; [1] &quot;real HS =  4.71 ; estimated HSest =  4.47&quot;</span></a>
+<a class="sourceLine" id="cb39-7" title="7">DSest &lt;-<span class="st"> </span><span class="kw">convertHStoDS</span>(<span class="dt">nindivs=</span><span class="dv">10</span>, <span class="dt">nobs=</span><span class="dv">10</span>, <span class="dt">HS=</span>HS)</a>
+<a class="sourceLine" id="cb39-8" title="8"><span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&#39;real DS = &#39;</span>, DS, <span class="st">&#39;; estimated DSest = &#39;</span>, <span class="kw">round</span>(DSest, <span class="dv">2</span>)))</a>
+<a class="sourceLine" id="cb39-9" title="9"><span class="co">#&gt; [1] &quot;real DS =  0.745 ; estimated DSest =  0.8&quot;</span></a></code></pre></div>
+<p>With an argument <code>se = TRUE</code>, it is possible to get standard error for HS and DS estimates (note that this may take a bit longer to calculate). The estimate is then accessed with <code>HSest$fit</code> and standard error with <code>HSest$se.fit</code> calls.</p>
+<p><a href="#contents">Back to Contents</a></p>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
